@@ -15,7 +15,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
-
+RUN apt-get update && apt-get install -y curl
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
@@ -46,4 +46,4 @@ COPY . .
 EXPOSE 8000
 
 # Run the application.
-CMD uvicorn 'app:app' --host=0.0.0.0 --port=8000
+CMD cd server && uvicorn 'app:app' --host=0.0.0.0 --port=8000
